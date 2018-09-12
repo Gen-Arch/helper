@@ -1,40 +1,42 @@
 require "yaml"
 module Serch
-  module DB
-    class << self
-      def serch(service, word)
-        db = db_get[service]
-        key = db.keys
-        res_index = Array.new
-        comp = Array.new
+  class DB
+    def initialize(service, word)
+      @db = db_get[service]
+      @key = @db.keys
+      @add_index = Array.new
+      @word = word
+    end
 
-        key.each do |k|
-          res = db[k].map.with_index { |e,i| e =~ /#{word}/ ? i : nil }.compact
-          res_index += res
+    def serch
+      comp = Array.new
+      
+      @key.each do |k|
+        @word.each do |w|
+          res = @db[k].map.with_index { |e,i| e =~ /#{w}/ ? i : nil }.compact
+          @add_index += res
         end
-
-        res_index.each do |i|
-          w = Array.new
-          key.each{|k| w << db[k][i] }
-          comp << w
-        end
-        
-        return comp_array(comp)
       end
 
+      @add_index.each do |i|
+        w = Array.new
+        @key.each{|k| w << @db[k][i] }
+        comp << w
+      end
+      
+      return comp_array(comp)
+    end
+
+    private
       def db_get
         db = open(File.join(File.dirname(__FILE__), "data/db.yml"), "r") {|f| YAML.load(f)}
       end
 
       def comp_array(ary)
-        temp = Array.new
         comp = Array.new
 
-        ary.each{|a| temp << a.join(",")} && temp.uniq!
-        temp.each{|v| comp << v.split(",")}
+        ary.each{|a| comp << a.join(",")} && comp.uniq!
         return comp
       end
-
-    end
   end
 end

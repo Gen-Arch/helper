@@ -18,7 +18,7 @@ module Serch
       db = { "evlan" => @evlandb } 
       YAML.dump(db, @yaml)
     end
-    
+
     private
       def dir_join(file)
         dir = File.join(File.dirname(__FILE__), "data/#{file}")
