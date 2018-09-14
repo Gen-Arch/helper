@@ -3,18 +3,27 @@ require "ostruct"
 
 module Serch
   class DB
+    include Helper
+
     def initialize(*args,**opt)
       @config = opt_analysis(args,opt)
       @add_index = Array.new
     end
 
+    def create_db(db)
+      dir = File.open(dir_join("db.yml"), "a")
+      YAML.dump(db, dir)
+    end
+    
+    def 
+      
+    end
     def serch
       comp = Array.new
-      
-        @word.each do |w|
-          res = @db[k].map.with_index { |e,i| e =~ /#{w}/ ? i : nil }.compact
-          @add_index += res
-        end
+
+      @word.each do |w|
+        res = @db[k].map.with_index { |e,i| e =~ /#{w}/ ? i : nil }.compact
+        @add_index += res
       end
 
       @add_index.each do |i|
@@ -22,18 +31,18 @@ module Serch
         @key.each{|k| w << @db[k][i] }
         comp << w
       end
-      
+
       return comp_array(comp)
     end
 
     private
     def opt_analysis(args,opt)
-        config = OpenStruct.new
-        config.word = args.to_a
-        config.noword = opt[:noword].to_a
-        config.service = opt[:service]
-        config.db = opt[:service] ? db_get[opt[:service]] : db_get
-        return config
+      config = OpenStruct.new
+      config.word = args.to_a
+      config.noword = opt[:noword].to_a
+      config.service = opt[:service]
+      config.db = opt[:service] ? db_get[opt[:service]] : db_get
+      return config
     end
 
     def db_get
