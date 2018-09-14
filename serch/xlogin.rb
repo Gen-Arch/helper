@@ -5,10 +5,18 @@ module Serch
 
       def create(service, word, dir="#{Dir::pwd}/xloginrc")
         db = Serch::DB.new(service,word).serch
-        aplist = Array.new
-        db.each {|d| aplist << d.split(",") }
+        list = Array.new
+        db.each {|d| list << d.split(",") }
         File.open(dir, "w") do |f|
-          aplist.each{ |d| f.puts("#{type_check(d[1])} '#{d[0]}','telnet://ccnc:#{d[3]}@#{d[2]}'") }
+          if service == "evlan"
+            list.each do |d|
+              next unless type_check(d[1])
+              f.puts("#{type_check(d[1])} '#{d[0]}','telnet://ccnc:#{d[3]}@#{d[2]}'")
+            end
+          elsif service == "ipf"
+            list.each{ |d| f.puts("asr9k '#{d[0]}','telnet://raphael:Sak1&wak7!@#{d[2]}'") }
+          end
+
         end
       end
 
@@ -25,7 +33,7 @@ module Serch
         when /6048/, /6148/
          return "ap6k"
         else
-         return type
+         return false
         end
       end
     end

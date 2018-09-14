@@ -1,17 +1,16 @@
 require "yaml"
+require "ostruct"
+
 module Serch
   class DB
-    def initialize(service, word)
-      @db = db_get[service]
-      @key = @db.keys
+    def initialize(*args,**opt)
+      @config = opt_analysis(args,opt)
       @add_index = Array.new
-      @word = word
     end
 
     def serch
       comp = Array.new
       
-      @key.each do |k|
         @word.each do |w|
           res = @db[k].map.with_index { |e,i| e =~ /#{w}/ ? i : nil }.compact
           @add_index += res
@@ -28,15 +27,24 @@ module Serch
     end
 
     private
-      def db_get
-        db = open(File.join(File.dirname(__FILE__), "data/db.yml"), "r") {|f| YAML.load(f)}
-      end
+    def opt_analysis(args,opt)
+        config = OpenStruct.new
+        config.word = args.to_a
+        config.noword = opt[:noword].to_a
+        config.service = opt[:service]
+        config.db = opt[:service] ? db_get[opt[:service]] : db_get
+        return config
+    end
 
-      def comp_array(ary)
-        comp = Array.new
+    def db_get
+      db = open(File.join(File.dirname(__FILE__), "data/db.yml"), "r") {|f| YAML.load(f)}
+    end
 
-        ary.each{|a| comp << a.join(",")} && comp.uniq!
-        return comp
-      end
+    def comp_array(ary)
+      comp = Array.new
+
+      ary.each{|a| comp << a.join(",")} && comp.uniq!
+      return comp
+    end
   end
 end
