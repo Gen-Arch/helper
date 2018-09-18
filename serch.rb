@@ -1,4 +1,4 @@
-$: << File.dirname(__FILE__)
+$: << __dir__
 
 require "serch/evlan"
 require "serch/db"

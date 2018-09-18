@@ -4,7 +4,7 @@ module Serch
     class << self
 
       def create(service, word, dir="#{Dir::pwd}/xloginrc")
-        db = Serch::DB.new(service,word).serch
+        db = DB.new(service,word).serch
         list = Array.new
         db.each {|d| list << d.split(",") }
         File.open(dir, "w") do |f|
