@@ -4,11 +4,13 @@ module Serch
 
     class << self
 
-      def create(*args, **opt, dir="#{Dir::pwd}/xloginrc")
+      def create(*args, **opt)
         db = DB.new(args,opt).serch
         list = Array.new
+        p db
         db.each {|d| list << d.split(",") }
-        add(list)
+        p list[1]
+        #add(list)
       end
 
       def add(list)

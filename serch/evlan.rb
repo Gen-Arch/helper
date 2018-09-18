@@ -1,14 +1,13 @@
 require "yaml"
 require "csv"
-require "helper"
 
 module Serch
   class Evlan
-    include Helper
 
     def initialize
-      @list_csv = dir_join("evlan_hostlist.csv")
-      @ver_csv = dir_join("ver.csv")
+      @dir
+      @list_csv = File.join(Serch::DIR, "evlan_hostlist.csv")
+      @ver_csv = File.join(Serch::DIR, "ver.csv")
       @evlandb = db_create
     end
 

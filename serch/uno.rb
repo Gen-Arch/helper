@@ -23,7 +23,7 @@ module Serch
         "pass" => Array.new,
         "ver" => Array.new,
       }
-      yml = YAML.load(dir_join("list.yml"))
+      yml = YAML.load_file(File.join(Serch::DIR, "list.yml"))
 
       yml.each do |y|
         next unless host_chack(y)
@@ -73,3 +73,4 @@ module Serch
       end
     end
   end 
+end
