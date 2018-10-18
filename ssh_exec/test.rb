@@ -1,6 +1,5 @@
-require "./ssh_exec.rb"
+$: << __dir__
 
-SSH_EXEC.get("casper") do |s|
-  resp = s.exec!("ls")
-  puts resp
-end
+require "ssh_exec"
+
+puts SSH_EXEC.server_list

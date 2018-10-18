@@ -1,8 +1,8 @@
 $: << __dir__
 
 require "bundler/setup"
-require "lib/ssh"
-require "lib/archive"
+require "ssh_exec/ssh"
+require "ssh_exec/archive"
 
 module SSH_EXEC
   class << self
@@ -14,10 +14,14 @@ module SSH_EXEC
       @archive ||= SSH_EXEC::Archive.instance
     end
 
-    def get(hostname, &block) 
-      session = archive.build(hostname)
+    def server_list
+      archive.inventry.keys
+    end
 
-      return session unless block
+    def get(hostname, &block) 
+      session = archive.session(hostname)
+
+      return session unless block_given?
       block.call(session)
     end
 

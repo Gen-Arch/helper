@@ -1,0 +1,4 @@
+{servername}:
+  server: {ip}
+  user: {login_id}
+  password: {login_pass}
