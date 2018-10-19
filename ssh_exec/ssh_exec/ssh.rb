@@ -11,8 +11,8 @@ module SSH_EXEC
       @session.exec!(cmd)[regexp]
     end
 
-    def scp(src, dst)
-      @session.scp.download! src, dst
+    def scp(src, dst, **opt)
+      @session.scp.download! src, dst, **opt
     end
     
   end

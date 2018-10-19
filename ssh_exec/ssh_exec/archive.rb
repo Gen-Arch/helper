@@ -6,15 +6,14 @@ module SSH_EXEC
     include Singleton
 
     attr_accessor :inventry
+
     def initialize
       @source ||= YAML.load_file(File.join(__dir__, "template/servers.yml"))
       @inventry = Hash.new
-      build
     end
 
     def set_source(file)
       @source = YAML.load_file(file)
-      build
     end
 
     def build
@@ -32,6 +31,7 @@ module SSH_EXEC
     end
 
     def session(name)
+      build
       source = @inventry[name]
       SSH_EXEC::SSH.new(source[:server], source[:user], source[:opt])
     end

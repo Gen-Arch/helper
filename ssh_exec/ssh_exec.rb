@@ -1,13 +1,12 @@
 $: << __dir__
 
-require "bundler/setup"
 require "ssh_exec/ssh"
 require "ssh_exec/archive"
 
 module SSH_EXEC
   class << self
     def configure(&block)
-      instance_eval($block)
+      instance_eval(&block)
     end
 
     def archive
@@ -15,6 +14,7 @@ module SSH_EXEC
     end
 
     def server_list
+      archive.build
       archive.inventry.keys
     end
 
