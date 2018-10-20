@@ -6,7 +6,7 @@ require "ssh_exec/archive"
 module SSH_EXEC
   class << self
     def configure(&block)
-      instance_eval(&block)
+      instance_eval(block)
     end
 
     def archive
