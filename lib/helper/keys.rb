@@ -1,6 +1,10 @@
 class Hash
-  def deep_symbolize_keys
-    deep_transform_keys{ |key| key.to_sym rescue key }
+  def to_sym_keys
+     deep_transform_keys{ |key| key.to_sym rescue key }
+  end
+
+  def to_sym_keys!
+     self = deep_transform_keys{ |key| key.to_sym rescue key }
   end
 
   def deep_transform_keys(&block)
