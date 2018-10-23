@@ -1,6 +1,6 @@
 require "color_echo/get"
 
-module Kernel
+module Colors
   colors = [
     :yellow, :cyan, :blue, :red, :white, :black, :green, :magenta, :gray,
     :h_yellow, :h_cyan, :h_blue, :h_red, :h_white, :h_green, :h_magenta, :h_gray,
@@ -17,3 +17,5 @@ module Kernel
     end
   end
 end
+
+String.send(:prepend, Colors)
