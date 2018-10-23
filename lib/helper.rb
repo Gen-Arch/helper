@@ -5,5 +5,7 @@ module Helper
   require 'helper/colors'
   require 'helper/hashsymbols'
 
-  prepend Analize
+  class << self
+    prepend Analize
+  end
 end
