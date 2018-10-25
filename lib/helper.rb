@@ -1,11 +1,10 @@
 $: << __dir__
-module Helper
-  VERSION = "0.1.3"
-  require 'helper/analize'
-  require 'helper/colors'
-  require 'helper/hashsymbols'
+require 'helper/analize'
+require 'helper/colors'
+require 'helper/hashsymbols'
 
+module Helper
   class << self
-    prepend Analize
+    include Analize
   end
 end
