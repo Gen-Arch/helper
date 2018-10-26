@@ -11,7 +11,7 @@ module Helper
         print "#{check_word} (#{true_word.inspect.delete("/")}/#{false_word.inspect.delete("/")}) : "
         case anser = $stdin.gets.strip
         when true_word then return true
-        when false_word then return true
+        when false_word then return false
         end
       end
     end
