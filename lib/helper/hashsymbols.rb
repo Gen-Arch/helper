@@ -7,7 +7,7 @@ module HashSymbols
     self.replace(deep_transform_keys{ |key| key.to_sym rescue key })
   end
 
-  def to_s_keys!
+  def to_s_keys
     deep_transform_keys{ |key| key.to_s rescue key }
   end
 
